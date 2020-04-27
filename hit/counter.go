@@ -86,13 +86,3 @@ func (m *counterMap) Add(k interface{}, count int64) {
 		newItem.current += item.current
 	}
 }
-
-func (m *counterMap) Delete(k interface{}) {
-	defer mutex.LockExclusive(&m.mux).Unlock()
-	now := time.Now()
-	m.run(now)
-
-	if item, ok := m.data[k]; ok {
-		m._delete(item)
-	}
-}
